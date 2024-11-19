@@ -22,6 +22,7 @@ after_initialize do
     ../extensions/post_creator.rb
     ../extensions/topic.rb
     ../jobs/update_journal_category_sort_order.rb
+    ../jobs/move_entries_to_comments.rb
   ).each do |path|
     load File.expand_path(path, __FILE__)
   end

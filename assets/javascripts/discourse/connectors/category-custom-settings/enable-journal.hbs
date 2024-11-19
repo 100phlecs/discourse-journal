@@ -35,4 +35,22 @@
       {{conditional-loading-spinner condition=updatingSortOrder size="small"}}
     {{/if}}
   </section>
+   <section class="field">
+    <h4 for="category-journal-move-entries-to-comments">
+      {{i18n "category.move_entries_to_comments.label"}}
+    </h4>
+
+    <p>{{i18n "category.move_entries_to_comments.description"}}</p>
+
+    <DButton
+      @label="category.move_entries_to_comments.button"
+      @action={{this.moveEntriesToComments}}
+      @icon="sync"/>
+
+    {{#if commentSyncResultIcon}}
+      {{d-icon syncResultIcon}}
+    {{else}}
+      {{conditional-loading-spinner condition=movingEntriesToComments size="small"}}
+    {{/if}}
+  </section>
 </section>
