@@ -7,6 +7,10 @@ en:
         label: "Update post sort order"
         description: "If journaling is enabled topics will be ordered as a journal. If journaling is disabled topics will be ordered normally."
         button: "Update"
+      move_entries_to_comments:
+        label: "Migrate over any invalid entries to comment section"
+        description: "If journaling is enabled you may have entries originating from someone else other than the journal author, which you can migrate. If journaling is disabled all entries will be rendered normally."
+        button: "Migrate"  
       journal_authors: "Journal authors"
       add_journal_authors: "Select author groups"
 

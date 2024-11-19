@@ -31,5 +31,34 @@ export default {
           }, 6000);
         });
     },
+    moveEntriesToComments() {
+      this.set("movingEntriesToComments", true);
+
+      ajax("/journal/move-entries-to-comments", {
+        type: "POST",
+        data: {
+          category_id: this.category.id,
+        },
+      })
+        .then((result) => {
+          let commentSyncResultIcon = result.success ? "check" : "times";
+
+          this.setProperties({
+            movingEntriesToComments: false,
+            commentSyncResultIcon,
+          });
+        })
+        .catch(() => {
+          this.setProperties({
+            commentSyncResultIcon: "times",
+            movingEntriesToComments: false,
+          });
+        })
+        .finally(() => {
+          setTimeout(() => {
+            this.set("commentSyncResultIcon", null);
+          }, 6000);
+        });
+    },
   },
 };

@@ -40,7 +40,7 @@ module DiscourseJournal
 
     def journal_author
       return unless entries.any?
-      @journal_author ||= User.find(entries.last[:user_id])
+      @journal_author ||= User.find(entries.first[:user_id])
     end
 
     def journal?
@@ -93,6 +93,24 @@ module DiscourseJournal
             p.id = o.id AND
             p.topic_id = #{self.id}
         SQL
+      end
+    end
+
+    def move_entries_to_comments 
+      return unless SiteSetting.journal_enabled
+      
+      latest_author_entry = nil
+
+      Post.transaction do
+        entries.each do |entry|
+          if latest_author_entry.nil?
+            latest_author_entry = entry
+          elsif entry.user_id == journal_author.id
+            latest_author_entry = entry
+          else
+            entry.update_columns(reply_to_post_number: latest_author_entry.post_number)
+          end
+        end
       end
     end
 
